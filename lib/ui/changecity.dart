@@ -6,7 +6,7 @@ class Changecity extends StatelessWidget {
     TextEditingController changecitycontroller = new TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: Text("ChangeCity"),
+        title: Text("Wheatherist"),
         backgroundColor: Colors.red,
       ),
       body: Stack(

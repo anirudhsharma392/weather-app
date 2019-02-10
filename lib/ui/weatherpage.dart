@@ -15,54 +15,74 @@ class WeatheristState extends State<Weatherist> {
   String currentcity;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Weatherist"),
-        centerTitle: true,
-        backgroundColor: Colors.red,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.menu),
-            color: Colors.white,
-            onPressed: () {
-              callchangecity(context);
-            },
-          )
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            child: Image.asset(
-              'images/umbrella.png',
-              width: 600.0,
-              height: 1200.0,
-              fit: BoxFit.cover,
-            ),
+    return WillPopScope(
+        onWillPop: _onbackpressed,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Weatherist"),
+            centerTitle: true,
+            backgroundColor: Colors.red,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.menu),
+                color: Colors.white,
+                onPressed: () {
+                  callchangecity(context);
+                },
+              )
+            ],
           ),
-          Container(
-            child: Text(
-                '${currentcity == null ? util.defaultcity : currentcity}',
-                style: citystyle()),
-            alignment: Alignment.topRight,
-            margin: EdgeInsets.fromLTRB(0, 30, 20, 0),
+          body: Stack(
+            children: <Widget>[
+              Container(
+                child: Image.asset(
+                  'images/umbrella.png',
+                  width: 600.0,
+                  height: 1200.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Container(
+                child: Text(
+                    '${currentcity == null ? util.defaultcity : currentcity}',
+                    style: citystyle()),
+                alignment: Alignment.topRight,
+                margin: EdgeInsets.fromLTRB(0, 30, 20, 0),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(30, 50, 0, 0),
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  'images/light_rain.png',
+                ),
+              ),
+              Container(
+                child: updatetemp(currentcity),
+              ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.fromLTRB(30, 50, 0, 0),
-            alignment: Alignment.topLeft,
-            child: Image.asset(
-              'images/light_rain.png',
-            ),
-          ),
-          Container(
-            child: updatetemp(currentcity),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
 /////////////////////////////////FUNCTIONS/////////////////////////
+
+  Future<bool> _onbackpressed() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Do you really want to Logout?"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('No'),
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                FlatButton(
+                  child: Text('Yes'),
+                  onPressed: () => Navigator.pop(context, true),
+                )
+              ],
+            ));
+  }
 
   Future<Map> getweather(String appid, String city) async {
     String apiurl =
@@ -97,6 +117,8 @@ class WeatheristState extends State<Weatherist> {
             ),
             alignment: Alignment.center,
           );
+        } else {
+          debugPrint("nothing");
         }
       },
     );
