@@ -87,25 +87,35 @@ class Loginstate extends State<Login> {
                   width: 90.0,
                   height: 90.0,
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 70.0, left: 30.0, right: 40.0),
-                  height: 120.0,
-                  width: 360.0,
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      TextField(
-                        controller: _username,
-                        decoration: InputDecoration(
-                            hintText: "Username", icon: new Icon(Icons.person)),
-                      ),
-                      TextField(
-                        controller: _password,
-                        decoration: InputDecoration(
-                            hintText: "Password", icon: new Icon(Icons.lock)),
-                        obscureText: true,
-                      )
-                    ],
+                Opacity(
+                  opacity: 0.5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 4.0),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                              25.0) //                 <--- border radius here
+                          ),
+                    ),
+                    margin: EdgeInsets.only(top: 70.0, left: 30.0, right: 40.0),
+                    height: 120.0,
+                    width: 360.0,
+                    child: Column(
+                      children: <Widget>[
+                        TextField(
+                          controller: _username,
+                          decoration: InputDecoration(
+                              hintText: "Username",
+                              icon: new Icon(Icons.person)),
+                        ),
+                        TextField(
+                          controller: _password,
+                          decoration: InputDecoration(
+                              hintText: "Password", icon: new Icon(Icons.lock)),
+                          obscureText: true,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Center(

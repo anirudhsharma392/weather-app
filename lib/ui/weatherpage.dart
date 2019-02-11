@@ -118,7 +118,7 @@ class WeatheristState extends State<Weatherist> {
             alignment: Alignment.center,
           );
         } else {
-          debugPrint("nothing");
+          return Container();
         }
       },
     );
@@ -133,7 +133,7 @@ class WeatheristState extends State<Weatherist> {
     if (results != null && results.containsKey('enter')) {
       currentcity = results['enter'];
     } else {
-      debugPrint("nothing");
+      currentcity = "delhi";
     }
   }
 /////////////////////////////////FUNCTIONS/////////////////////////
