@@ -97,6 +97,7 @@ class WeatheristState extends State<Weatherist> {
       future: getweather(util.appid, city == null ? util.defaultcity : city),
       builder: (BuildContext, AsyncSnapshot<Map> snapshot) {
         if (snapshot.hasData) {
+          if (snapshot.data != null) {
           Map content = snapshot.data;
           return Container(
             margin: EdgeInsets.fromLTRB(30.0, 260.0, 140, 0),
@@ -117,9 +118,10 @@ class WeatheristState extends State<Weatherist> {
             ),
             alignment: Alignment.center,
           );
-        } else {
-          return Container();
-        }
+        }}else
+          return Container( margin: EdgeInsets.fromLTRB(30.0, 260.0, 140, 0),
+            child: Text("Loading...", style: tempstyle()),
+          );
       },
     );
   }
